@@ -10,6 +10,14 @@ import (
 func Test_json(t *testing.T) {
 	dec := i18n.NewJsonDecoder()
 	data := make(map[string]any)
-	dec(strings.NewReader(`{"x":"x123"}`), &data)
-	t.Fatal(data)
+	if err := dec(strings.NewReader(`[{"x":"x123"}]`), &data); err != nil {
+		t.Fatal(err)
+	}
+	if v, ok := data["x"]; ok {
+		if v != "x123" {
+			t.Fail()
+		}
+	} else {
+		t.Fatal("JosnDecoder failed")
+	}
 }

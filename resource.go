@@ -18,7 +18,7 @@ func ResourceFilename(name string) Resource {
 }
 func ResourceBytes(buffer []byte) Resource {
 	return func() (io.Reader, error) {
-		return bytes.NewBuffer(buffer), nil
+		return bytes.NewReader(buffer), nil
 	}
 }
 func ResourceText(text string) Resource {
